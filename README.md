@@ -1,63 +1,70 @@
-# Ideaflow Technical JS take home
+# Draft.js Autocomplete Editor
 
-Thanks for your interest in Ideaflow!
+## Overview
 
-We will evaluate your code quality, as well as the number of bugs or limitations of your implementation.
-We expect you to implement the specs from scratch with Draft.js and not use a plugin.
-Current plugins all have limitations and bugs. We also want to evaluate your own coding skills.
-Please cite your sources if you decide to inspire yourself from existing code, which is totally fine with us.
+The **Draft.js Autocomplete Editor** is a rich text editor built with [React](https://reactjs.org/) and [Draft.js](https://draftjs.org/), featuring a custom autocomplete system. The editor allows users to type freely while providing inline suggestions triggered by specific character sequences.
 
-We tailored this exercise to take approximately 4h, but time may vary depending on how familiar you are with Draft.js.
-Some candidates took 2h, some others 8h.
+## Features
 
-## Goals
+- **Rich Text Editing** – Supports standard text editing functionalities including typing, selecting, copying, pasting, and cutting.
+- **Custom Autocomplete Trigger** – Autocomplete is activated when the user types `<>`.
+- **Dynamic Suggestions** – A dropdown dynamically updates based on the user’s input, showing matching suggestions.
+- **Keyboard Navigation** – Users can navigate suggestions using the arrow keys and select a suggestion with `Enter` or `Tab`.
+- **Mouse Interaction** – Suggestions can be clicked to insert them into the editor.
+- **Immutable Tokens** – Once a suggestion is selected, it appears as a **non-editable token** that can only be deleted with a single `Backspace` press.
+- **Portal-Based Dropdown** – Uses React Portals to render the suggestion dropdown outside the editor’s DOM hierarchy, ensuring proper positioning and avoiding styling conflicts.
 
-- Build a text editor using Draft.js with autocomplete from this template
-- Share your source with us on Github or via an archive
-- Deploy your build online
+## Live Demo
 
-## The text editor
+A live demo of the editor is available [here](https://draftjs-autocomplete-82yhvz7im-art-semyonovs-projects.vercel.app).
 
-The editor should be capable of taking keyboard and mouse input
-to freely edit its content. Classic actions like copy and paste, cut, selections should all work as expected.
-The editor should also offer an autocomplete.
+## Getting Started
 
-### Autocomplete Process
+### Prerequisites
 
-An autocomplete process should be started when the characters `<>` are typed.
-The “match string” is the continuous substring extending from the right of the `<>` to the caret. This substring must not contain \n.
+Before running the project, ensure you have the following installed:
 
-### List of Suggestions
+- **Node.js** (latest LTS version recommended)
+- **npm** or **Yarn**
 
-When the autocomplete process is ongoing, a list of suggestions should be displayed below the match string.
-Every suggestion displayed in the list should be a “match string” prefix. You can hardcode some suggestions.
-The suggestions should dynamically update in response to the user's input.
-One suggestion should be highlighted at all times.
-Pressing ‘up’ and ‘down’ arrow keys should highlight another suggestion.
+### Installation
 
-Pressing ‘enter’ or ‘tab’ will select the highlighted suggestion.
-After selecting a suggestion, the editor should display an "autocompleted entry" instead of the match string.
-The value of the autocompleted entry should be equal to the highlighted suggestion, or if no suggestion was present, the match string.
-Classic mouse interactions should also be allowed to select and highlight suggestions.
+1. Clone the repository and navigate to the project directory.
+2. Install dependencies using `npm install` or `yarn install`.
+3. Start the development server by running `npm start` or `yarn start`.
+4. The app will be accessible at `http://localhost:3000`.
 
-### Autocompleted Entry
+### Building for Production
 
-An "autocompleted entry" should be a different color text and it should not be editable. It can be entirely removed with one ‘backspace’ key press.
+To create an optimized production build, run:
 
-## Share
+- `npm run build` or `yarn build`
 
-Share your code on Github with `taylormitchell`. You can also send us a zip archive with your sources if it's more convenient for you.
+This will generate a `build/` directory containing the compiled assets.
 
-## Deploy
+### Running Tests
 
-We recommend using Vercel https://vercel.com/guides/deploying-react-with-vercel-cra
-Feel free to use another provider if required.
+The project includes automated tests using **Jest** and **React Testing Library**. To run tests:
 
-## Get started
+- Execute `npm test` or `yarn test` to run all tests.
+- Generate a coverage report using `npm test -- --coverage` or `yarn test --coverage`.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## How Autocomplete Works
 
-```
-yarn
-yarn start
-```
+The autocomplete feature in the editor follows a structured process:
+
+1. **Trigger Detection** – When a user types `<>`, autocomplete is activated.
+2. **Match String Extraction** – The text immediately after `<>` is captured as the **match string**.
+3. **Filtering Suggestions** – The dropdown displays **suggestions that match the prefix**.
+4. **User Selection**:
+   - **Keyboard Navigation** – Users can use `ArrowUp` and `ArrowDown` to highlight suggestions and `Enter` or `Tab` to select them.
+   - **Mouse Interaction** – Clicking on a suggestion inserts it into the editor.
+5. **Inserting Immutable Tokens** – Once a suggestion is selected, it is inserted as a **non-editable token** with distinct styling.
+6. **Removing Tokens** – Pressing `Backspace` deletes an entire token in a single action.
+
+## Future Improvements
+
+- **API-based Dynamic Suggestions** – Instead of hardcoded values, allow suggestions to be fetched from an API.
+- **Multiple Autocomplete Triggers** – Support for additional triggers like `@` for mentions or `#` for hashtags.
+- **Enhanced Styling and Animations** – Improve dropdown design and add smooth animations.
+- **Accessibility Enhancements** – Ensure the dropdown is fully accessible with ARIA attributes and screen reader support.
